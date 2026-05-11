@@ -192,7 +192,7 @@ def nueva_inscripcion():
         flash("Inscripcion Realizada", "success")
         return redirect(url_for("inscripciones"))
     estudiantes = conn.execute('''
-                                    SELECT id, concat(nombres," ",apellidos)  as nombre FROM estudiantes
+                                    SELECT id, nombres || ' ' || apellidos as nombre FROM estudiantes
                             ''').fetchall()
     cursos = conn.execute('''
                             SELECT id, descripcion FROM cursos
