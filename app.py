@@ -80,7 +80,7 @@ def inscripciones():
                                     JOIN cursos c ON i.curso_id = c.id
                                 ''').fetchall()
     conn.close()
-    return render_template("Inscripciones.html", inscripciones=inscripciones)
+    return render_template("inscripciones.html", inscripciones=inscripciones)
 
 
 
