@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: Sistema-Academico
+    env: python
+    buildComand: "pip install -r requirements.txt"
+    startComand: "gunicorn app:app"

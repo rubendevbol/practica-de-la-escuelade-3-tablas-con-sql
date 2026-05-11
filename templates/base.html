@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1020">
+    <title>{% block title %}Sistema Académico{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__brand">
+                <div class="brand-mark">AC</div>
+                <div class="brand-copy">
+                    <span class="brand-name">Academia</span>
+                    <span class="brand-subtitle">Centro de capacitación</span>
+                </div>
+                <button class="sidebar__close" id="sidebarClose" type="button" aria-label="Cerrar menú">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <nav class="sidebar__nav" aria-label="Navegación principal">
+                <a href="/cursos" class="nav-link {% if request.path.startswith('/cursos') %}active{% endif %}" data-page="cursos">
+                    <span class="nav-link__icon"></span>
+                    <span class="nav-link__text">Cursos</span>
+                </a>
+                <a href="/estudiantes" class="nav-link {% if request.path.startswith('/estudiantes') or request.path.startswith('/new_estudent') or request.path.startswith('/estudiante') %}active{% endif %}" data-page="estudiantes">
+                    <span class="nav-link__icon"></span>
+                    <span class="nav-link__text">Estudiantes</span>
+                </a>
+                <a href="/inscripciones" class="nav-link {% if request.path.startswith('/inscripciones') or request.path.startswith('/inscripcion') %}active{% endif %}" data-page="inscripciones">
+                    <span class="nav-link__icon"></span>
+                    <span class="nav-link__text">Inscripciones</span>
+                </a>
+            </nav>
+
+            <div class="sidebar__footer">
+                <div class="sidebar__status">
+                    <span class="status-dot"></span>
+                    Sistema activo
+                </div>
+                <p>Panel académico para gestión de cursos, estudiantes e inscripciones.</p>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="topbar__left">
+                    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div>
+                        <p class="eyebrow">Panel de control</p>
+                        <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+                    </div>
+                </div>
+
+                <div class="topbar__right">
+                    <div class="topbar__chip">Gestión académica</div>
+                    <div class="topbar__avatar">SA</div>
+                </div>
+            </header>
+
+            <section class="content">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="flash-stack">
+                            {% for category, message in messages %}
+                                <div class="flash flash-{{ category|lower }}">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                {% block content %}{% endblock %}
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

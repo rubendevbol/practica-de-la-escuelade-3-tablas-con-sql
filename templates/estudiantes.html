@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Estudiantes | Sistema Académico{% endblock %}
+{% block page_title %}Estudiantes{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+	<div>
+		<p class="section-label">Gestión de estudiantes</p>
+		<h2 class="section-title">Listado de estudiantes registrados</h2>
+		<p class="section-description">Administra altas, ediciones y eliminaciones desde una vista clara y profesional.</p>
+	</div>
+	<a href="/new_estudent" class="btn btn-primary">Crear Estudiante</a>
+</section>
+
+<section class="stats-grid">
+	<article class="stat-card">
+		<span class="stat-label">Estudiantes registrados</span>
+		<strong class="stat-value">{{ estudiantes|length }}</strong>
+		<span class="stat-meta">Total cargado desde Flask</span>
+	</article>
+	<article class="stat-card">
+		<span class="stat-label">Acciones disponibles</span>
+		<strong class="stat-value">2</strong>
+		<span class="stat-meta">Editar y eliminar</span>
+	</article>
+</section>
+
+<section class="panel">
+	<div class="panel__header">
+		<div>
+			<h3 class="panel__title">Tabla de estudiantes</h3>
+			<p class="panel__subtitle">Vista compatible con el loop de Jinja enviado desde el backend.</p>
+		</div>
+	</div>
+
+	<div class="table-wrap">
+		<table class="data-table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nombres</th>
+					<th>Apellidos</th>
+					<th>Fecha de nacimiento</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for e in estudiantes %}
+				<tr>
+				  <td>{{ e.id }}</td>
+				  <td>{{ e.nombres }}</td>
+				  <td>{{ e.apellidos }}</td>
+				  <td>{{ e.fecha_nacimiento }}</td>
+				  <td>
+					<a href="/estudiante/editar/{{e.id}}" class="btn-edit">Editar</a>
+					<a href="/estudiante/eliminar/{{e.id}}" class="btn-delete">Eliminar</a>
+				  </td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</section>
+{% endblock %}

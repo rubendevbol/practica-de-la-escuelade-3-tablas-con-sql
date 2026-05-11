@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Cursos | Sistema Académico{% endblock %}
+{% block page_title %}Cursos{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+	<div>
+		<p class="section-label">Gestión de cursos</p>
+		<h2 class="section-title">Cursos disponibles en el sistema</h2>
+		<p class="section-description">Controla el catálogo de cursos con una interfaz moderna, clara y consistente.</p>
+	</div>
+	<a href="/cursos/nuevo" class="btn btn-primary">Crear Curso</a>
+</section>
+
+<section class="stats-grid">
+	<article class="stat-card">
+		<span class="stat-label">Cursos registrados</span>
+		<strong class="stat-value">{{ cursos|length }}</strong>
+		<span class="stat-meta">Total disponible</span>
+	</article>
+	<article class="stat-card">
+		<span class="stat-label">Acciones disponibles</span>
+		<strong class="stat-value">2</strong>
+		<span class="stat-meta">Editar y eliminar</span>
+	</article>
+</section>
+
+<section class="panel">
+	<div class="panel__header">
+		<div>
+			<h3 class="panel__title">Tabla de cursos</h3>
+			<p class="panel__subtitle">Diseño oscuro tipo SaaS con botones y sombras suaves.</p>
+		</div>
+	</div>
+
+	<div class="table-wrap">
+		<table class="data-table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Descripción</th>
+					<th>Horas</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for c in cursos %}
+				<tr>
+				  <td>{{ c.id }}</td>
+				  <td>{{ c.descripcion }}</td>
+				  <td>{{ c.horas }}</td>
+				  <td>
+					<a href="/cursos/editar/{{c.id}}" class="btn-edit">Editar</a>
+					<a href="/cursos/eliminar/{{c.id}}" class="btn-delete">Eliminar</a>
+				  </td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</section>
+{% endblock %}

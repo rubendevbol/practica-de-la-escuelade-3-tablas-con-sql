@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if curso is defined and curso %}Editar curso{% else %}Nuevo curso{% endif %} | Sistema Académico{% endblock %}
+{% block page_title %}{% if curso is defined and curso %}Editar curso{% else %}Nuevo curso{% endif %}{% endblock %}
+
+{% block content %}
+<section class="form-shell">
+	<div class="form-panel">
+		<div class="panel__header">
+			<div>
+				<h3 class="panel__title">Formulario de curso</h3>
+				<p class="panel__subtitle">Agrega un nuevo curso o actualiza uno existente.</p>
+			</div>
+		</div>
+
+		<form class="form-grid" method="post" action="">
+			<div class="field field--full">
+				<label for="descripcion">Descripción</label>
+				<input id="descripcion" name="descripcion" type="text" value="{{ curso.descripcion if curso is defined and curso else '' }}" placeholder="Descripción del curso">
+			</div>
+
+			<div class="field field--full">
+				<label for="horas">Horas</label>
+				<input id="horas" name="horas" type="number" min="1" value="{{ curso.horas if curso is defined and curso else '' }}" placeholder="Horas">
+			</div>
+
+			<div class="form-actions field--full">
+				<a href="/cursos" class="btn btn-secondary">Cancelar</a>
+				<button type="submit" class="btn btn-primary">Guardar</button>
+			</div>
+		</form>
+	</div>
+</section>
+{% endblock %}

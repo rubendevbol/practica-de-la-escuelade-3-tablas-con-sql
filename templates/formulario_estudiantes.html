@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if estudiante is defined and estudiante %}Editar estudiante{% else %}Nuevo estudiante{% endif %} | Sistema Académico{% endblock %}
+{% block page_title %}{% if estudiante is defined and estudiante %}Editar estudiante{% else %}Nuevo estudiante{% endif %}{% endblock %}
+
+{% block content %}
+<section class="form-shell">
+	<div class="form-panel">
+		<div class="panel__header">
+			<div>
+				<h3 class="panel__title">Formulario de estudiante</h3>
+				<p class="panel__subtitle">Completa los datos para registrar o actualizar un estudiante.</p>
+			</div>
+		</div>
+
+		<form class="form-grid" method="post" action="">
+			<div class="field">
+				<label for="nombres">Nombres</label>
+				<input id="nombres" name="nombres" type="text" value="{{ estudiante.nombres if estudiante is defined and estudiante else '' }}" placeholder="Nombres">
+			</div>
+
+			<div class="field">
+				<label for="apellidos">Apellidos</label>
+				<input id="apellidos" name="apellidos" type="text" value="{{ estudiante.apellidos if estudiante is defined and estudiante else '' }}" placeholder="Apellidos">
+			</div>
+
+			<div class="field field--full">
+				<label for="fecha_nac">Fecha de nacimiento</label>
+				<input id="fecha_nac" name="fecha_nac" type="date" value="{{ estudiante.fecha_nacimiento if estudiante is defined and estudiante else '' }}">
+			</div>
+
+			<div class="form-actions field--full">
+				<a href="/estudiantes" class="btn btn-secondary">Cancelar</a>
+				<button type="submit" class="btn btn-primary">Guardar</button>
+			</div>
+		</form>
+	</div>
+</section>
+{% endblock %}

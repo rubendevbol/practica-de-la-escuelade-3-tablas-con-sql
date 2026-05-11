@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if inscripcion is defined and inscripcion %}Editar inscripción{% else %}Nueva inscripción{% endif %} | Sistema Académico{% endblock %}
+{% block page_title %}{% if inscripcion is defined and inscripcion %}Editar inscripción{% else %}Nueva inscripción{% endif %}{% endblock %}
+
+{% block content %}
+<section class="form-shell">
+	<div class="form-panel">
+		<div class="panel__header">
+			<div>
+				<h3 class="panel__title">Formulario de inscripción</h3>
+				<p class="panel__subtitle">Relaciona un estudiante con un curso y define la fecha de registro.</p>
+			</div>
+		</div>
+
+		<form class="form-grid" method="post" action="">
+			<div class="field field--full">
+				<label for="fecha">Fecha</label>
+				<input id="fecha" name="fecha" type="date" value="{{ inscripcion.fecha if inscripcion is defined and inscripcion else '' }}">
+			</div>
+
+			{% if estudiantes is defined and cursos is defined %}
+			<div class="field">
+				<label for="estudiante_id">Estudiante</label>
+				<select id="estudiante_id" name="estudiante_id">
+					<option value="">Selecciona un estudiante</option>
+					{% for estudiante in estudiantes %}
+					<option value="{{ estudiante.id }}" {% if inscripcion is defined and inscripcion and inscripcion.estudiante_id == estudiante.id %}selected{% endif %}>{{ estudiante.nombre }}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="field">
+				<label for="curso_id">Curso</label>
+				<select id="curso_id" name="curso_id">
+					<option value="">Selecciona un curso</option>
+					{% for curso in cursos %}
+					<option value="{{ curso.id }}" {% if inscripcion is defined and inscripcion and inscripcion.curso_id == curso.id %}selected{% endif %}>{{ curso.descripcion }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			{% else %}
+			<div class="field">
+				<label for="estudiante_id">Estudiante ID</label>
+				<input id="estudiante_id" name="estudiante_id" type="number" value="{{ inscripcion.estudiante_id if inscripcion is defined and inscripcion else '' }}" placeholder="ID de estudiante">
+			</div>
+
+			<div class="field">
+				<label for="curso_id">Curso ID</label>
+				<input id="curso_id" name="curso_id" type="number" value="{{ inscripcion.curso_id if inscripcion is defined and inscripcion else '' }}" placeholder="ID de curso">
+			</div>
+			{% endif %}
+
+			<div class="form-actions field--full">
+				<a href="/inscripciones" class="btn btn-secondary">Cancelar</a>
+				<button type="submit" class="btn btn-primary">Guardar</button>
+			</div>
+		</form>
+	</div>
+</section>
+{% endblock %}
